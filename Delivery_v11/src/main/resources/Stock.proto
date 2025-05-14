@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_package = "grpc";
+
+service StockService {
+
+  rpc registrarVenta(VentaRequest) returns (RestoProductoReply) {}
+
+  rpc bajoStock(StockRequest) returns (stream ProductosReply){}
+
+  rpc dameStock (stream DameStockRequest) returns (stream VentaRequest){}
+}
+
+
+message VentaRequest {
+	string idProducto = 1;
+	int32 cantidad = 2;
+}
+message RestoProductoReply {
+	int32 resto = 1; // cantidad que queda de producto
+}
+message StockRequest {
+	int32 umbral = 1; // quiero preguntar cuántos productos están por debajo de este umbral
+}
+message ProductosReply {
+	string idProducto = 1;
+}
+message DameStockRequest {
+	string idProducto = 1;
+}
+
+
